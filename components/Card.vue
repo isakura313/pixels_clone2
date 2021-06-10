@@ -1,13 +1,10 @@
 <template>
-  <div
-    class="column is-one-quarter"
-  @click='showLightBox'>
-    <b-image
+    <v-img
+      lazy-src="srcimage"
       :src="srcimage"
-      ratio="6by4"
-      :rounded="rounded"
-    ></b-image>
-  </div>
+       max-height="150"
+       max-width="250"
+    ></v-img>
 </template>
 
 <script>
@@ -19,7 +16,7 @@ export default {
     },
   },
   methods:{
-    showLightBox (){
+    showCoolBox (){
       this.$emit('showGallery')
     }
   }

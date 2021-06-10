@@ -1,26 +1,24 @@
 <template>
-  <section class='section'>
-    <div class='columns is-centered'>
-      <div class='column is-half'>
+  <v-main >
+    <v-row>
+      <v-col xs ={12}>
         <h1 class='is-size-3 title'>
           Поиск на Pixels
         </h1>
-        <b-field label='search'>
-          <b-input v-model='search' />
-        </b-field>
-        <b-button @click='$fetch' type='is-primary'>
+        <v-input v-model='search' />
+        <v-btn @click='$fetch'>
           Искать
-        </b-button>
-      </div>
-    </div>
-    <div class='columns is-multiline'>
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
       <Card
         v-for='photo in data.photos'
         :key='photo.id'
         :srcimage='photo.src.large'
       />
-    </div>
-  </section>
+    </v-row>
+  </v-main>
 </template>
 
 <script>
