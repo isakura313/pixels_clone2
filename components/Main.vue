@@ -2,11 +2,7 @@
   <v-main>
     <v-container>
       <v-row>
-        <CoolLightBox 
-         :items="photos" 
-        :index="index" 
-        @close="index = null" > 
-        </CoolLightBox>
+
       </v-row>
       <v-row>
         <v-img
