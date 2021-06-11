@@ -1,19 +1,13 @@
 <template>
-  <v-main>
-    <v-container>
-      <v-row>
-
-      </v-row>
-      <v-row>
-        <v-img
-          v-for="image in photos"
-          :key="image.index"
+  <v-row>
+        <v-col 
+          v-for="image in photos"  
+          :key="image.index">
+          <v-img
           :src="image.thumb"
-          @click="index = image.index"
-        />
-      </v-row>
-    </v-container>
-  </v-main>
+          @click="index = image.index" />
+        </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -42,11 +36,6 @@ export default {
     },
   },
   methods: {
-    // showLightBox(idPhoto) {
-    //   this.lightToShow = !this.lightToShow
-    //   this.$refs.lightGallery.lightBoxOn = true
-    //   this.$refs.lightGallery.showImage(idPhoto)
-    // },
     getInfo() {
       this.$emit('changePage', this.current)
     },

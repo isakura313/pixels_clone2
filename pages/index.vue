@@ -1,12 +1,23 @@
 <template>
-  <section class='section'>
-    <Main
+<v-main>
+  <v-container>
+  <v-row>
+    <!-- <Main
       :photos='media'
       :total = 'total'
       :image-count='15'
       @changePage = "getInfo"
-    />
-  </section>
+    /> -->
+        <v-col v-for="image in media"  :key="image.index">
+          <v-img
+          :src="image.thumb"
+          max-height="150"
+          max-width="250"
+          @click="hello"/>
+        </v-col>
+  </v-row>
+    </v-container>
+  </v-main>
 </template>
 
 <script>
@@ -56,6 +67,9 @@ export default {
       this.$fetch()
       this.show = true
 
+    },
+    hello(){
+      alert('hello');
     }
   }
 }
