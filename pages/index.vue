@@ -7,9 +7,14 @@
             :src="image.thumb"
             max-height="150"
             max-width="250"
-            @click="hello"
+           @click="index = image.index"
           />
         </v-col>
+            <CoolLightBox 
+      :items="dataImg" 
+      :index="index"
+      @close="index = null">
+    </CoolLightBox>
       </v-row>
     </v-container>
   </v-main>
@@ -18,6 +23,8 @@
 <script>
 import Card from '~/components/Card'
 import Main from '~/components/Main'
+import CoolLightBox from 'vue-cool-lightbox'
+import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 
 export default {
   name: 'HomePage',
@@ -25,12 +32,14 @@ export default {
   components: {
     Main,
     Card,
+    CoolLightBox
   },
 
   data:function() {
     return {
       page: 1,
       total: 300,
+      index:null,
       media: [
         {
           thumb:
@@ -74,3 +83,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.cool-lightbox {
+  height: 100vh !important;
+  width: 100%;
+}
+</style>
