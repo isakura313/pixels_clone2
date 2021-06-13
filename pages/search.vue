@@ -1,48 +1,97 @@
 <template>
-  <section class='section'>
-    <div class='columns is-centered'>
-      <div class='column is-half'>
-        <h1 class='is-size-3 title'>
-          Поиск на Pixels
-        </h1>
-        <b-field label='search'>
-          <b-input v-model='search' />
-        </b-field>
-        <b-button @click='$fetch' type='is-primary'>
-          Искать
-        </b-button>
-      </div>
-    </div>
-    <div class='columns is-multiline'>
-      <Card
-        v-for='photo in data.photos'
-        :key='photo.id'
-        :srcimage='photo.src.large'
-      />
-    </div>
-  </section>
+  <v-main>
+    <v-container fluid>
+      <v-row dense>
+        <v-col>
+          <v-card class="search">
+            <v-row align="center" justify="center">
+              <v-card-title style="color: white">
+                Поиск на Pixels
+              </v-card-title>
+              <v-col cols="4">
+                <v-text-field background-color="white" 
+                v-model="search"
+                />
+              </v-col>
+              <v-col cols="2">
+                <v-btn @click="getData" small>
+                  <v-icon> mdi-magnify </v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
+      </v-container>
+        <v-container>
+        <v-row>
+          <v-col 
+            v-for="image in dataImg" 
+            :key="image.index">
+            <v-img
+              :src="image.src"
+              max-height="250"
+              max-width="350"
+              @click="index = image.index"
+            />
+          </v-col>
+        </v-row>
+    <CoolLightBox 
+      :items="dataImg" 
+      :index="index"
+      @close="index = null">
+    </CoolLightBox>
+    </v-container>
+  </v-main>
 </template>
 
 <script>
-import Card from '~/components/Card'
+import CoolLightBox from 'vue-cool-lightbox'
+import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
+
 
 export default {
   components: {
-    Card
+    CoolLightBox,
   },
-  async fetch() {
-    this.data = await fetch(`https://api.pexels.com/v1/search?query=${this.search}`, {
-      method: 'GET',
-      headers: {
-        Authorization: '563492ad6f91700001000001c6dc5c5329904df0936ea995dc4d7209'
-      }
-    }).then(res => res.json())
-  },
+
   data() {
     return {
       search: '',
-      data: []
+      index: null,
+      dataImg: [],
     }
+  },
+  methods:{
+      async getData() {
+    const photo = await this.$axios.$get(
+      `https://api.pexels.com/v1/search?query=${this.search}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization:
+            '563492ad6f91700001000001c6dc5c5329904df0936ea995dc4d7209',
+        },
+      }
+    )
+    const dataImg= photo.photos.map((item, index) => {
+      return {
+        index: index,
+        thumb: item.src.large,
+        src: item.src.large,
+      }
+    }) 
+    this.dataImg = dataImg;
+  },
   }
 }
 </script>
+
+
+
+<style scoped>
+.search {
+  background-image: url('https://images.pexels.com/photos/998641/pexels-photo-998641.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
+  background-size: cover;
+}
+</style>
