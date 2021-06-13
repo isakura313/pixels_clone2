@@ -1,12 +1,23 @@
 <template>
   <v-row>
-        <v-col 
-          v-for="image in photos"  
-          :key="image.index">
-          <v-img
-          :src="image.thumb"
-          @click="index = image.index" />
-        </v-col>
+    <v-col v-for="image in photos" :key="image.index">
+      <v-img
+        :src="image.src"
+        max-height="250"
+        max-width="350"
+        @click="index = image.index"
+      />
+    </v-col>
+    <CoolLightBox :items="photos" :index="index" @close="index = null">
+    </CoolLightBox>
+    <v-row justify="center" class="mt-8" rounded>
+      <v-pagination
+        v-model="page"
+        :length="8"
+        input="updateData(page)"
+        circle
+      ></v-pagination>
+    </v-row>
   </v-row>
 </template>
 
@@ -16,7 +27,7 @@ import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import Card from '../components/Card'
 
 export default {
-  name: 'Main',
+  name: 'PhotoGrid',
   components: {
     Card,
     CoolLightBox,
@@ -35,13 +46,9 @@ export default {
       default: 30,
     },
   },
-  methods: {
-    getInfo() {
-      this.$emit('changePage', this.current)
-    },
-  },
   data() {
     return {
+      page: 1,
       index: 1,
       current: 1,
       size: '',
@@ -52,6 +59,11 @@ export default {
       prevIcon: 'chevron-left',
       nextIcon: 'chevron-right',
     }
+  },
+  watch: {
+    page: function () {
+      this.$emit('updatePage', this.page)
+    },
   },
 }
 </script>
