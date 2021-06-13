@@ -2,36 +2,36 @@
   <v-main>
     <v-container>
       <v-row>
+        <v-col>
+        <h1 class="text-center h2 ma-6"> Фотографии на любой вкус</h1>
+        </v-col>
+      </v-row>
+      <v-row>
         <v-col v-for="image in dataImg" :key="image.index">
           <v-img
-            :src="image.thumb"
-            max-height="150"
-            max-width="250"
+            :src="image.src"
+            max-height="250"
+            max-width="350"
            @click="index = image.index"
           />
         </v-col>
-            <CoolLightBox 
+    </v-row>
+  <CoolLightBox 
       :items="dataImg" 
       :index="index"
       @close="index = null">
     </CoolLightBox>
-      </v-row>
     </v-container>
   </v-main>
 </template>
 
 <script>
-import Card from '~/components/Card'
-import Main from '~/components/Main'
 import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 
 export default {
-  name: 'HomePage',
-
+  name: 'Home',
   components: {
-    Main,
-    Card,
     CoolLightBox
   },
 
@@ -60,7 +60,6 @@ export default {
         },
       }
     )
-    console.log(photo.photos)
     const dataImg= photo.photos.map((item, index) => {
       return {
         index: index,
@@ -74,11 +73,7 @@ export default {
   methods: {
     getInfo(page) {
       this.page = page
-      this.$fetch()
       this.show = true
-    },
-    hello() {
-      alert('hello')
     },
   },
 }

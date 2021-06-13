@@ -1,16 +1,19 @@
 <template>
-  <v-app-bar
-    color="#6A76AB"
-    dark
-    shrink-on-scroll
-    app
-  >
-    <v-btn nuxt to = '/' > Домой </v-btn>
-    <v-btn nuxt to="/search"> Поиск </v-btn>
+<v-app>
+  <Navigator />
     <nuxt />
-  </v-app-bar>
+    <Footer />
+    </v-app>
 </template>
 
 <script>
-export default {}
+import Navigator from './Navigator.vue';
+import Footer from './Footer.vue';
+
+export default {
+  components:{
+    Navigator,
+    Footer
+  }
+}
 </script>
