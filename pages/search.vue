@@ -11,7 +11,7 @@
               </v-card-title>
               </v-col>
             </v-row>
-            <v-row align="center" justify="center">
+            <v-row align="center" justify="center" class="main__search">
               <v-col xl="3" xs ='3' sm="3">
                 <input
                   background-color="white"
@@ -99,6 +99,9 @@ export default {
 
 
 <style scoped lang="sass">
+.main__search 
+  display: flex
+  align-items: flex-end
 .search
   background-image: url('https://images.pexels.com/photos/998641/pexels-photo-998641.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260')
   background-size: cover
@@ -124,5 +127,4 @@ $breakpoint-tablet: 608px
     display: none
   .search__input
     width: 200px
-  
 </style>
