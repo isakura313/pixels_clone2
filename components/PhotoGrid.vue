@@ -4,7 +4,7 @@
       <v-img
         :src="image.src"
         max-height="250"
-        max-width="350"
+        max-width="350px"
         @click="index = image.index"
       />
     </v-col>
@@ -68,5 +68,5 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="sass">
 </style>

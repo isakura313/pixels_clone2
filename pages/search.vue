@@ -3,12 +3,16 @@
     <v-container fluid>
       <v-row dense>
         <v-col>
-          <v-card class="search" align="center" justify="center">
-            <v-row align="center" justify="center">
-              <v-card-title style="color: white">
+          <v-card class="search" align="center">
+            <v-row justify="center">
+              <v-col cols="3">
+              <v-card-title style="color: white" class="card__title">
                 Поиск на Pixels
               </v-card-title>
-              <v-col cols="3">
+              </v-col>
+            </v-row>
+            <v-row align="center" justify="center">
+              <v-col xl="3" xs ='3' sm="3">
                 <input
                   background-color="white"
                   ref="input"
@@ -94,18 +98,31 @@ export default {
 
 
 
-<style scoped>
-.search {
-  background-image: url('https://images.pexels.com/photos/998641/pexels-photo-998641.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
-  background-size: cover;
-  height: 70px;
-}
-.search__input {
-  font-size: 22px;
-  background-color: white;
-  outline: none;
-  color: black;
-  padding: 4px;
-  border-radius: 3px;
-}
+<style scoped lang="sass">
+.search
+  background-image: url('https://images.pexels.com/photos/998641/pexels-photo-998641.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260')
+  background-size: cover
+  height: 200px
+
+.search__input 
+  font-size: 22px
+  background-color: white
+  outline: none
+  color: black
+  padding: 4px
+  border-radius: 3px
+.card__title
+  text-align: center
+  font-size: 1.8em
+  font-weight: bold
+
+$breakpoint-tablet: 608px
+@media (max-width: $breakpoint-tablet)
+  .search
+    height: 90px
+  .card__title
+    display: none
+  .search__input
+    width: 200px
+  
 </style>
