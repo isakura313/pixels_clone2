@@ -98,7 +98,7 @@ export default {
 
 
 
-<style scoped lang="sass">
+<style lang="sass">
 .main__search 
   display: flex
   align-items: flex-end
