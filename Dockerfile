@@ -1,12 +1,11 @@
-FROM node:10.7
+FROM node:lts-alpine as build-stage
+ENV APP_ROOT /web
+ENV NODE_ENV production
 
-ENV APP_ROOT /src
-
-RUN mkdir ${APP_ROOT}
 WORKDIR ${APP_ROOT}
 ADD . ${APP_ROOT}
 
-RUN npm install
+RUN npm ci
 RUN npm run build
 
-ENV HOST 0.0.0.0
+CMD ["npm", "run", "start"]
