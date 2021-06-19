@@ -1,16 +1,12 @@
-FROM node:lts-alpine as build-stage
-WORKDIR /pixels_clone2
-# ADD . ${APP_ROOT}
-COPY package*.json ./
+FROM node:10.7
+
+ENV APP_ROOT /src
+
+RUN mkdir ${APP_ROOT}
+WORKDIR ${APP_ROOT}
+ADD . ${APP_ROOT}
+
 RUN npm install
-COPY . .
 RUN npm run build
-RUN npm run generate
 
-
-FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage  /pixels_clone2/dist  /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon on;"]
-
-
+ENV HOST 0.0.0.0
