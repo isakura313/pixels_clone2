@@ -1,11 +1,13 @@
 FROM node:lts-alpine as build-stage
-ENV APP_ROOT /web
-ENV NODE_ENV production
+
+RUN apt-get update
+
+ENV APP_ROOT /src
 
 WORKDIR ${APP_ROOT}
-ADD . ${APP_ROOT}
+COPY . ${APP_ROOT}
 
 RUN npm i
 RUN npm run build
 
-CMD ["npm", "run", "start"]
+ENV HOST 0.0.0.0
