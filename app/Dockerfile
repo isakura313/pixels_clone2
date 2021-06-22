@@ -1,4 +1,4 @@
-FROM node:lts-alpine as build-stage
+FROM node:10
 
 # RUN apt-get update
 
