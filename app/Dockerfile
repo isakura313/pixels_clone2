@@ -1,6 +1,6 @@
 FROM node:lts-alpine as build-stage
 
-RUN apt-get update
+# RUN apt-get update
 
 ENV APP_ROOT /src
 
