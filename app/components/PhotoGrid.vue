@@ -1,4 +1,5 @@
 <template>
+<v-container>
   <v-row>
     <v-col v-for="image in photos" :key="image.index">
       <v-img
@@ -10,24 +11,29 @@
     </v-col>
     <CoolLightBox :items="photos" :index="index" @close="index = null">
     </CoolLightBox>
+  </v-row>
     <v-row justify="center" class="mt-8" rounded>
+      <v-col>
       <v-pagination
         v-model="page"
         :length="8"
         input="updateData(page)"
         circle
       ></v-pagination>
+      </v-col>
     </v-row>
-  </v-row>
+</v-container>
 </template>
 
 <script>
 import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import Card from '../components/Card'
+import store from '../store'
 
 export default {
   name: 'PhotoGrid',
+  store,
   components: {
     Card,
     CoolLightBox,
@@ -62,7 +68,7 @@ export default {
   },
   watch: {
     page: function () {
-      this.$emit('updatePage', this.page)
+     this.$store.commit("updatePagination", this.page)
     },
   },
 }

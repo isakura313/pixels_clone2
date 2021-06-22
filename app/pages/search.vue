@@ -47,7 +47,7 @@
 import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
-
+import key from '../keys'
 export default {
   components: {
     CoolLightBox,
@@ -74,7 +74,7 @@ export default {
           method: 'GET',
           headers: {
             Authorization:
-              '563492ad6f91700001000001c6dc5c5329904df0936ea995dc4d7209',
+               key.KEY
           },
         }
       )

@@ -6,8 +6,8 @@
         <h1 class="text-center h2 ma-6"> Фотографии на любой вкус</h1>
         </v-col>
       </v-row>
-      <photo-grid :photos="dataImg"  @updatePage="globalUpdatePage"/>
     </v-container>
+      <photo-grid :photos="dataImg" />
   </v-main>
 </template>
 
@@ -15,9 +15,13 @@
 import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
+import store from '../store'
+import key from '../keys'
+console.log(key.KEY)
 
 export default {
   name: 'Home',
+  store,
   components: {
     CoolLightBox,
     PhotoGrid
@@ -25,7 +29,6 @@ export default {
 
   data:function() {
     return {
-      globalPage: 1,
       index:null,
       loading: false,
       media: [
@@ -44,7 +47,7 @@ export default {
         method: 'GET',
         headers: {
           Authorization:
-            '563492ad6f91700001000001c6dc5c5329904df0936ea995dc4d7209',
+          key.KEY
         },
       }
     )
@@ -59,22 +62,21 @@ export default {
   },
 
   methods: {
-    getInfo(page) {
-      this.page = page
-      this.show = true
-    },
-      globalUpdatePage(page){
-      this.globalPage = page;
-      this.getData(page)
-    },
+    // getInfo(page) {
+    //   this.page = page
+    //   this.show = true
+    // },
+    //   globalUpdatePage(){
+
+    //   this.getData(this.globalPage)
+    // },
      async getData(page) {
     const photo = await this.$axios.$get(
       `https://api.pexels.com/v1/curated?page=${page}`,
       {
         method: 'GET',
         headers: {
-          Authorization:
-            '563492ad6f91700001000001c6dc5c5329904df0936ea995dc4d7209',
+          Authorization: key.KEY
         },
       }
     )
@@ -88,6 +90,16 @@ export default {
     this.dataImg = dataImg;
   },
   },
+  computed:{
+    globalPage() {
+      return this.$store.state.paginationNumber;
+    }
+  },
+  watch:{
+    globalPage:function(){
+      this.getData(this.globalPage)
+    }
+  }
 
 }
 </script>
