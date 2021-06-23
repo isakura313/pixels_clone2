@@ -14,9 +14,7 @@
             <v-row align="center" justify="center" class="main__search">
               <v-col xl="3" xs ='3' sm="3">
                 <input
-                  background-color="white"
-                  ref="input"
-                  @keydown.enter="getData"
+                  v-model="search"
                   class="search__input"
                 />
                 <v-btn @click="getData" small>
@@ -37,7 +35,7 @@
           Результат поиска по запросу {{ search }}
         </h1>
 
-        <PhotoGrid :photos="dataImg" @updatePage="globalUpdatePage" />
+        <PhotoGrid :photos="dataImg" />
       </div>
     </v-container>
   </v-main>
@@ -48,6 +46,7 @@ import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
 import key from '../keys'
+
 export default {
   components: {
     CoolLightBox,
@@ -57,17 +56,12 @@ export default {
   data() {
     return {
       search: '',
-      globalPage: 1,
       index: null,
       dataImg: [],
     }
   },
   methods: {
     async getData() {
-      if (this.globalPage == 1) {
-        this.search = this.$refs.input.value
-        this.$refs.input.value = ''
-      }
       const photo = await this.$axios.$get(
         `https://api.pexels.com/v1/search?query=${this.search}&page=${this.globalPage}`,
         {
@@ -93,6 +87,17 @@ export default {
       this.getData(page)
     },
   },
+    computed:{
+    globalPage() {
+      return this.$store.state.paginationNumber;
+    }
+  },
+  watch:{
+    globalPage:function(){
+      this.getData(this.globalPage)
+    }
+  }
+
 }
 </script>
 
