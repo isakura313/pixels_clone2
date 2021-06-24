@@ -42,7 +42,7 @@ export default {
   },
   async asyncData({ $axios, globalPage }) {
     const photo = await $axios.$get(
-      `https://api.pexels.com/v1/curated?page=${globalPage}`,
+      `https://api.pexels.com/v1/curated?page=${globalPage}&per_page=24`,
       {
         method: 'GET',
         headers: {

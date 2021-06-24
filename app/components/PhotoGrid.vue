@@ -1,11 +1,11 @@
 <template>
-<v-container>
+<v-container fluid style="width:80%">
   <v-row>
-    <v-col v-for="image in photos" :key="image.index">
+    <v-col v-for="image in photos" :key="image.index" xl="4" xs ='4' sm="1" align="center">
       <v-img
         :src="image.src"
-        max-height="250"
-        max-width="350px"
+        max-height="250px"
+        max-width="400px"
         @click="index = image.index"
       />
     </v-col>

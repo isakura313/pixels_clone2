@@ -16,8 +16,9 @@
                 <input
                   v-model="search"
                   class="search__input"
+                  @keydown.enter="getData"
                 />
-                <v-btn @click="getData" small>
+                <v-btn @click="getData"  small>
                   <v-icon> mdi-magnify </v-icon>
                 </v-btn>
               </v-col>
