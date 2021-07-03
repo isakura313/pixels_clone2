@@ -46,7 +46,7 @@
 import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
-import key from '../keys'
+import {key} from '../keys'
 
 export default {
   components: {

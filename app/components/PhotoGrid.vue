@@ -1,13 +1,33 @@
 <template>
 <v-container fluid style="width:80%">
   <v-row>
-    <v-col v-for="image in photos" :key="image.index" xl="4" xs ='4' sm="1" align="center">
+    <v-col v-for="image in photos" :key="image.index"  md="4" xl="4" xs ='4' sm="1" align="center">
+      <v-card>
+    <div style="height:280px">
       <v-img
         :src="image.src"
         max-height="250px"
         max-width="400px"
         @click="index = image.index"
       />
+      </div>
+  <a v-bind:href="image.author_url" class="gallery_author"><v-card-title> {{ image.author }} </v-card-title> </a>
+    <v-card-actions>
+       <v-icon
+       v-if="!image.like"
+       large
+        @click="likePhoto(image.id)">
+         mdi-heart
+       </v-icon>
+        <v-icon
+       v-else
+       large
+        color="red"
+        @click="likePhoto(image.id)">
+         mdi-heart
+       </v-icon>
+    </v-card-actions>
+      </v-card>
     </v-col>
     <CoolLightBox :items="photos" :index="index" @close="index = null">
     </CoolLightBox>
@@ -71,8 +91,17 @@ export default {
      this.$store.commit("updatePagination", this.page)
     },
   },
+  methods:{
+    likePhoto(id){
+      this.$emit("likePhoto", id)
+    }
+  }
 }
 </script>
 
 <style scoped lang="sass">
+.color_pallete
+  width: 30px
+  height: 30px
+  border: 1px solid black
 </style>

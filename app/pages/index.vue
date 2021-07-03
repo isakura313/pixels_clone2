@@ -7,7 +7,7 @@
         </v-col>
       </v-row>
     </v-container>
-      <photo-grid :photos="dataImg" />
+      <photo-grid :photos="dataImg"  @likePhoto="globalLike"/>
   </v-main>
 </template>
 
@@ -15,13 +15,10 @@
 import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
-import store from '../store'
-import key from '../keys'
-console.log(key.KEY)
+import {key} from '../keys'
 
 export default {
   name: 'Home',
-  store,
   components: {
     CoolLightBox,
     PhotoGrid
@@ -53,23 +50,19 @@ export default {
     )
     const dataImg= photo.photos.map((item, index) => {
       return {
+        like:false,
+        id: item.id,
         index: index,
         thumb: item.src.large,
         src: item.src.large,
+        author_url: item.photographer_url,
+        author: item.photographer
       }
     }) 
     return {dataImg};
   },
 
   methods: {
-    // getInfo(page) {
-    //   this.page = page
-    //   this.show = true
-    // },
-    //   globalUpdatePage(){
-
-    //   this.getData(this.globalPage)
-    // },
      async getData(page) {
     const photo = await this.$axios.$get(
       `https://api.pexels.com/v1/curated?page=${page}`,
@@ -82,12 +75,23 @@ export default {
     )
     const dataImg= photo.photos.map((item, index) => {
       return {
+         id: item.id,
+        like:false,
         index: index,
         thumb: item.src.large,
         src: item.src.large,
+        color: item.avg_color,
+        author: item.photographer
       }
     }) 
     this.dataImg = dataImg;
+  },
+  globalLike(id){
+    this.dataImg.map(index=> {if(index.id == id){
+        index.like = !index.like
+    }
+    })
+    this.$store.commit('updateLikes', id)
   },
   },
   computed:{
