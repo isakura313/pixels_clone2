@@ -1,6 +1,7 @@
 image: node
 
 before_script:
+  - cd app/
   - npm install
 
 cache:
