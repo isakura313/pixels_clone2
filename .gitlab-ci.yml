@@ -4,7 +4,8 @@ pages: # the job must be named pages
   image: node:latest
   stage: deploy
   script:
-    - npm ci
+    - cd app
+    - npm i
     - npm run build
     - npm run generate
     - mv dist public # rename the dist folder (result of npm run build)
