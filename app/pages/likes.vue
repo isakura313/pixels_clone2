@@ -4,11 +4,11 @@
       <v-row>
         <v-col>
         <h1 class="text-center h2 ma-6"> Ваши избранные фотографии</h1>
-        <!-- <v-btn  @click="getLikedPhoto"> getPhoto </v-btn> -->
+        <div v-if="!media.length"> <h5 class="text-center h2 ma-6">Добавьте сюда что-нить</h5> </div>
+
         </v-col>
       </v-row>
     </v-container>
-        <div v-if="!media.length"> <h3>Добавьте сюда что-нить</h3> </div>
       <photo-grid :photos="media"/>
   </v-main>
 </template>
@@ -63,6 +63,7 @@ export default {
 
   methods: {
      async getLikedPhoto() {
+       const dataPhoto = []
     const dataImg  = this.likedPhotos.map(async(item, index) =>{
     let photoInfo = await axios.get(
       `https://api.pexels.com/v1/photos/${item}`,
@@ -83,12 +84,13 @@ export default {
         author_url: photoInfo.data.photographer_url,
         author: photoInfo.data.photographer
       }
-      this.media.push(dataInfo)
+     dataPhoto.push(dataInfo)
     }) 
-    // return {dataImg};
-    console.log(dataImg)
-    
+    this.media = dataPhoto
   },
+  },
+  created(){
+    this.$store.dispatch("getLikes")
   },
   mounted(){
       if(this.likedPhotos.length == 0){
@@ -102,6 +104,16 @@ export default {
       return this.$store.state.likedPhotos;
     }
   },
+  watch: {
+    likedPhotos:function(){
+      if(this.$store.state.deleteId != 0){
+      console.log(this.likedPhotos)
+      this.media = this.media.filter(item => {
+       return item.id != this.$store.state.deleteId 
+      })
+    }
+  }
+  }
 }
 </script>
 

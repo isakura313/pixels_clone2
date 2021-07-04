@@ -3,11 +3,11 @@
     <v-container>
       <v-row>
         <v-col>
-        <h1 class="text-center h2 ma-6"> Фотографии на любой вкус</h1>
+          <h1 class="text-center h2 ma-6">Фотографии на любой вкус</h1>
         </v-col>
       </v-row>
     </v-container>
-      <photo-grid :photos="dataImg"  @likePhoto="globalLike"/>
+    <photo-grid :photos="dataImg" :galleryMode="true" @likePhoto="globalLike" />
   </v-main>
 </template>
 
@@ -15,18 +15,18 @@
 import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
-import {key} from '../keys'
+import { key } from '../keys'
 
 export default {
   name: 'Home',
   components: {
     CoolLightBox,
-    PhotoGrid
+    PhotoGrid,
   },
 
-  data:function() {
+  data: function () {
     return {
-      index:null,
+      index: null,
       loading: false,
       media: [
         {
@@ -43,68 +43,67 @@ export default {
       {
         method: 'GET',
         headers: {
-          Authorization:
-          key.KEY
+          Authorization: key.KEY,
         },
       }
     )
-    const dataImg= photo.photos.map((item, index) => {
+    const dataImg = photo.photos.map((item, index) => {
       return {
-        like:false,
+        like: false,
         id: item.id,
         index: index,
         thumb: item.src.large,
         src: item.src.large,
         author_url: item.photographer_url,
-        author: item.photographer
+        author: item.photographer,
       }
-    }) 
-    return {dataImg};
+    })
+    return { dataImg }
   },
 
   methods: {
-     async getData(page) {
-    const photo = await this.$axios.$get(
-      `https://api.pexels.com/v1/curated?page=${page}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: key.KEY
-        },
-      }
-    )
-    const dataImg= photo.photos.map((item, index) => {
-      return {
-         id: item.id,
-        like:false,
-        index: index,
-        thumb: item.src.large,
-        src: item.src.large,
-        color: item.avg_color,
-        author: item.photographer
-      }
-    }) 
-    this.dataImg = dataImg;
+    async getData(page) {
+      const photo = await this.$axios.$get(
+        `https://api.pexels.com/v1/curated?page=${page}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: key.KEY,
+          },
+        }
+      )
+      const dataImg = photo.photos.map((item, index) => {
+        return {
+          id: item.id,
+          like: false,
+          index: index,
+          thumb: item.src.large,
+          src: item.src.large,
+          color: item.avg_color,
+          author: item.photographer,
+        }
+      })
+      this.dataImg = dataImg
+    },
+    globalLike(id) {
+      this.dataImg.map((index) => {
+        if (index.id == id) {
+          index.like = !index.like
+        }
+      })
+      this.$store.commit('updateLikes', id)
+    },
   },
-  globalLike(id){
-    this.dataImg.map(index=> {if(index.id == id){
-        index.like = !index.like
-    }
-    })
-    this.$store.commit('updateLikes', id)
-  },
-  },
-  computed:{
+  computed: {
     globalPage() {
-      return this.$store.state.paginationNumber;
-    }
+      return this.$store.state.paginationNumber
+    },
   },
-  watch:{
-    globalPage:function(){
+  watch: {
+    globalPage: function () {
       this.getData(this.globalPage)
-    }
-  }
-
+    },
+  },
 }
 </script>
 

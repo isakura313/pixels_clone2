@@ -36,9 +36,9 @@
           Результат поиска по запросу {{ search }}
         </h1>
 
-        <PhotoGrid :photos="dataImg" />
       </div>
     </v-container>
+        <PhotoGrid :photos="dataImg" :galleryMode="showPag" @likePhoto="globalLike" />
   </v-main>
 </template>
 
@@ -57,12 +57,14 @@ export default {
   data() {
     return {
       search: '',
+      showPag: false,
       index: null,
       dataImg: [],
     }
   },
   methods: {
     async getData() {
+      this.showPag = true;
       const photo = await this.$axios.$get(
         `https://api.pexels.com/v1/search?query=${this.search}&page=${this.globalPage}`,
         {
@@ -75,9 +77,13 @@ export default {
       )
       const dataImg = photo.photos.map((item, index) => {
         return {
-          index: index,
-          thumb: item.src.large,
-          src: item.src.large,
+        like: false,
+        id: item.id,
+        index: index,
+        thumb: item.src.large,
+        src: item.src.large,
+        author_url: item.photographer_url,
+        author: item.photographer,
         }
       })
       this.dataImg = dataImg
@@ -86,6 +92,14 @@ export default {
     globalUpdatePage(page) {
       this.globalPage = page
       this.getData(page)
+    },
+        globalLike(id) {
+      this.dataImg.map((index) => {
+        if (index.id == id) {
+          index.like = !index.like
+        }
+      })
+      this.$store.commit('updateLikes', id)
     },
   },
     computed:{

@@ -11,8 +11,9 @@
         @click="index = image.index"
       />
       </div>
+      <div style="display:flex; justify-content:space-between;">
   <a v-bind:href="image.author_url" class="gallery_author"><v-card-title> {{ image.author }} </v-card-title> </a>
-    <v-card-actions>
+    <v-card-actions v-if="galleryMode">
        <v-icon
        v-if="!image.like"
        large
@@ -27,14 +28,25 @@
          mdi-heart
        </v-icon>
     </v-card-actions>
+      
+    <v-card-actions v-else>
+         <v-icon
+         large
+        @click="deleteFromLike(image.id)">
+         mdi-delete
+       </v-icon>
+      </v-card-actions>
+      </div>
       </v-card>
     </v-col>
+    
     <CoolLightBox :items="photos" :index="index" @close="index = null">
     </CoolLightBox>
   </v-row>
     <v-row justify="center" class="mt-8" rounded>
       <v-col>
       <v-pagination
+      v-show="galleryMode"
         v-model="page"
         :length="8"
         input="updateData(page)"
@@ -71,6 +83,10 @@ export default {
       type: Number,
       default: 30,
     },
+    galleryMode:{
+      type: Boolean,
+      default:false
+    }
   },
   data() {
     return {
@@ -85,7 +101,7 @@ export default {
       prevIcon: 'chevron-left',
       nextIcon: 'chevron-right',
     }
-  },
+  }, 
   watch: {
     page: function () {
      this.$store.commit("updatePagination", this.page)
@@ -94,6 +110,9 @@ export default {
   methods:{
     likePhoto(id){
       this.$emit("likePhoto", id)
+    },
+    deleteFromLike(id){
+      this.$store.commit("deleteLikes", id)
     }
   }
 }
