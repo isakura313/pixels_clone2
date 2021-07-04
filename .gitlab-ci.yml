@@ -7,6 +7,7 @@ pages: # the job must be named pages
     - cd app
     - npm i
     - npm run build
+    - npm i nuxt -g
     - npm run generate
     - mv dist public # rename the dist folder (result of npm run build)
     # optionally, you can activate gzip support with the following line:
