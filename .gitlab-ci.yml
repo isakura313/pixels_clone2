@@ -10,7 +10,9 @@ cache:
 
 pages:
   script:
+    - npm run build
     - npm run generate
+    - mv dist ../piblic
   artifacts:
     paths:
       - public
