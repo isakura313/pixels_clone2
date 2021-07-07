@@ -60,10 +60,12 @@ export default {
       showPag: false,
       index: null,
       dataImg: [],
+      showLoader: false
     }
   },
   methods: {
     async getData() {
+      this.showLoader = true;
       this.showPag = true;
       const photo = await this.$axios.$get(
         `https://api.pexels.com/v1/search?query=${this.search}&page=${this.globalPage}`,
@@ -107,9 +109,19 @@ export default {
       return this.$store.state.paginationNumber;
     }
   },
+  updated() {
+    this.showLoader = false;
+  },
   watch:{
     globalPage:function(){
       this.getData(this.globalPage)
+    },
+    showLoader: function(){
+      if(this.showLoader){
+        this.$loading.show()
+      }  else{
+        this.$loading.hide()
+      }
     }
   }
 
