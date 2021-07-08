@@ -16,13 +16,11 @@
     <v-card-actions v-if="galleryMode">
        <v-icon
        v-if="!image.like"
-       large
         @click="likePhoto(image.id)">
          mdi-heart
        </v-icon>
         <v-icon
        v-else
-       large
         color="red"
         @click="likePhoto(image.id)">
          mdi-heart
@@ -31,7 +29,6 @@
       
     <v-card-actions v-else>
          <v-icon
-         large
         @click="deleteFromLike(image.id)">
          mdi-delete
        </v-icon>
