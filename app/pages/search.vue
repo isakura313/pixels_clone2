@@ -5,14 +5,14 @@
         <v-col>
           <v-card class="search" align="center">
             <v-row justify="center">
-              <v-col cols="3">
-              <v-card-title style="color: white" class="card__title">
-                Поиск на Pixels
+              <v-col cols="3"  xs ='6' sm="12" justify = "center">
+              <v-card-title  class="card__title">
+                <h3> Поиск на Pixels </h3>
               </v-card-title>
               </v-col>
             </v-row>
             <v-row align="center" justify="center" class="main__search">
-              <v-col xl="3" xs ='3' sm="3">
+              <v-col xl="6" xs ='6' sm="12">
                 <input
                   v-model="search"
                   class="search__input"
@@ -66,7 +66,6 @@ export default {
   methods: {
     async getData() {
       this.showLoader = true;
-      this.showPag = true;
       const photo = await this.$axios.$get(
         `https://api.pexels.com/v1/search?query=${this.search}&page=${this.globalPage}`,
         {
@@ -79,7 +78,7 @@ export default {
       )
       const dataImg = photo.photos.map((item, index) => {
         return {
-        like: false,
+          like: false,
         id: item.id,
         index: index,
         thumb: item.src.large,
@@ -88,6 +87,7 @@ export default {
         author: item.photographer,
         }
       })
+          this.showPag = true;
       this.dataImg = dataImg
   
     },
@@ -147,9 +147,11 @@ export default {
   padding: 4px
   border-radius: 3px
 .card__title
-  text-align: center
   font-size: 1.8em
   font-weight: bold
+  color: white
+  display: flex
+  justify-content: center
 
 $breakpoint-tablet: 608px
 @media (max-width: $breakpoint-tablet)

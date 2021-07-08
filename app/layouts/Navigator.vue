@@ -5,18 +5,21 @@
     hide-on-scroll
   >
   <v-btn   
-  color="error"    
-      nuxt
+  class="logo_nav" 
+  nuxt
+  color="error"  
        to = '/' >
     <v-toolbar-title 
       class="toolbar__logo" 
 >Pixels</v-toolbar-title>
   </v-btn>
-       <div class="nav_wrap ma-6">
+  <v-row>
+       <v-col class="nav_wrap ma-6">
          <NuxtLink  to = '/' color="primary" class="nav_wrap__link"> Домой </NuxtLink >
          <NuxtLink  to="/search" class="nav_wrap__link"> Поиск </NuxtLink  >
          <NuxtLink  to="/likes" class="nav_wrap__link"> Избранное </NuxtLink  >
-       </div>
+       </v-col>
+       </v-row>
   </v-app-bar>
 </template>
 
@@ -25,17 +28,14 @@
   color: white
   font-weight: bold
   font-size: 24px
-.nav_wrap
-  width: 400px
-  padding-left: 2em 
-  .nav_wrap__link
-    font-size: 22px
-    text-decoration: none
-    color: white
-    font-weight: bold
-    margin-right: 1.3em
-    &:hover
-      color: red   
+.nav_wrap__link
+  font-size: 22px
+  text-decoration: none
+  color: white
+  font-weight: bold
+  margin-right: 1.3em
+  &:hover
+    color: red   
 
   
 $breakpoint-tablet: 608px
@@ -48,6 +48,10 @@ $breakpoint-tablet: 608px
   .nav_wrap__link
     font-size: 18px
     padding-left: 0 
+  @media screen and (max-width: 600px)
+    .nav_wrap__link
+      font-size: 14px
+   
   
 </style>
 

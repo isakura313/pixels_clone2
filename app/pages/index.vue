@@ -27,7 +27,7 @@ export default {
   data: function () {
     return {
       index: null,
-      loading: false,
+      showLoader: false,
       media: [
         {
           thumb:
@@ -63,6 +63,7 @@ export default {
 
   methods: {
     async getData(page) {
+       this.showLoader = true;
       const photo = await this.$axios.$get(
         `https://api.pexels.com/v1/curated?page=${page}`,
         {
@@ -84,6 +85,7 @@ export default {
         }
       })
       this.dataImg = dataImg
+      this.showLoader = false;
     },
     globalLike(id) {
       this.dataImg.map((index) => {
@@ -103,6 +105,13 @@ export default {
     globalPage: function () {
       this.getData(this.globalPage)
     },
+    showLoader: function(){
+      if(this.showLoader){
+        this.$loading.show()
+      }  else{
+        this.$loading.hide()
+      }
+    }
   },
 }
 </script>

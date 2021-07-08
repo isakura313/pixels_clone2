@@ -1,7 +1,7 @@
 <template>
 <v-container fluid style="width:80%">
   <v-row>
-    <v-col v-for="image in photos" :key="image.index"  md="4" xl="4" xs ='4' sm="1" align="center">
+    <v-col v-for="image in photos" :key="image.index"  md="4" xl="4" xs ='4' sm="6" align="center">
       <v-card>
     <div style="height:280px">
       <v-img
