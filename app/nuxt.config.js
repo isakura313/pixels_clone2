@@ -17,6 +17,9 @@ export default {
             { rel: 'icon', type: 'image/png', href: '/favicon.png' }
         ]
     },
+    // router: {
+    //     base: '/?id=1'
+    //   },
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
     css: [],

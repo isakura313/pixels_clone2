@@ -99,6 +99,14 @@ export default {
       nextIcon: 'chevron-right',
     }
   }, 
+  // computed: {
+  //   page(){
+  //     // return this.$store.state.paginationNumber;
+  //   }
+  // },
+  updated(){
+    this.page = Number(this.$store.state.paginationNumber);
+  },
   watch: {
     page: function () {
      this.$store.commit("updatePagination", this.page)
