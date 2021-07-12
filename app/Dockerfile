@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:lts-alpine as build-stage
 
 # RUN apt-get update
 
@@ -9,5 +9,6 @@ COPY . ${APP_ROOT}
 
 RUN npm i
 RUN npm run build
+RUN npm run generate
 
 ENV HOST 0.0.0.0
