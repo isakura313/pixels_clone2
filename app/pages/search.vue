@@ -12,13 +12,13 @@
               </v-col>
             </v-row>
             <v-row align="center" justify="center" class="main__search">
-              <v-col xl="6" xs="6" sm="12">
+              <v-col xl="6" xs="6" sm="12" style="display:flex; align-items:center; justify-content: center">
                 <input
                   v-model="search"
                   class="search__input"
                   @keydown.enter="getData"
                 />
-                <v-btn @click="getData" small>
+                <v-btn @click="getData" style="height: 42px; margin-left: 20px;">
                   <v-icon> mdi-magnify </v-icon>
                 </v-btn>
               </v-col>
@@ -64,6 +64,9 @@ export default {
   },
   methods: {
     async getData() {
+      if(this.search === ''){
+        return;
+      }
       this.showLoader = true
       const photo = await this.$axios.$get(
         `https://api.pexels.com/v1/search?query=${this.search}&page=${this.globalPage}`,
