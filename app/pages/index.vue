@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import CoolLightBox from 'vue-cool-lightbox'
+import CoolLightBox from 'vue-cool-lightbox' // плагин для показывания полного изображения по клику
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
 import { key } from '../keys'
