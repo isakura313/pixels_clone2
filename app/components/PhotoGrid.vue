@@ -44,8 +44,9 @@
       <v-col>
       <v-pagination
       v-show="galleryMode"
+        :total-visible="7"
         v-model="page"
-        :length="8"
+        :length="50"
         input="updateData(page)"
         circle
       ></v-pagination>

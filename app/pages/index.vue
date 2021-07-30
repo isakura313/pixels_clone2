@@ -4,7 +4,6 @@
       <v-row>
         <v-col>
           <h1 class="text-center h2 ma-6">Фотографии на любой вкус</h1>
-          {{$route.query.id}}
         </v-col>
       </v-row>
     </v-container>
@@ -29,28 +28,20 @@ export default {
     return {
       index: null,
       showLoader: false,
-      media: [
-        {
-          thumb:
-            'https://images.pexels.com/photos/3885950/pexels-photo-3885950.jpeg',
-          src: 'https://images.pexels.com/photos/3885950/pexels-photo-3885950.jpeg',
-        },
-      ],
+      media: [],
     }
   },
 
   updated(){
-   const page = this.$route.query.page || 1;
-           this.$nextTick(() => {
+      this.$nextTick(() => {
           this.currentPage = this.globalPage;
         });
   },
   mounted(){
     const query = this.$route.query.page || 1;
     this.$store.commit("updatePagination", query)
-    // this.$route.query.id = this.$store.state.paginationNumber;
   },
-  async asyncData({ $axios, globalPage, params }) {
+  async asyncData({ $axios, globalPage }) {
     const photo = await $axios.$get(
       `https://api.pexels.com/v1/curated?page=${globalPage}&per_page=24`,
       {
@@ -76,7 +67,6 @@ export default {
 
   methods: {
     async getData(page) {
-
        this.showLoader = true;
       const photo = await this.$axios.$get(
         `https://api.pexels.com/v1/curated?page=${page}`,
@@ -119,8 +109,6 @@ export default {
         return this.$route.query.page || 1;
       },
       set(newPage) {
-        // You could alternatively call your API here if you have serverside pagination
-
         this.$router.push({ query: { ...this.$route.query, page: newPage } })
       }
     }
