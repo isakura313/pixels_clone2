@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import Dialog from 'vue-dialog-loading'
+// import Dialog from 'vue-dialog-loading'
 
-Vue.use(Dialog, {
-    dialogBtnColor: '#0f0'
-})
+// Vue.use(Dialog, {
+//     dialogBtnColor: '#0f0'
+// })

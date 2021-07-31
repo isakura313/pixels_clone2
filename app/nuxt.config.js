@@ -27,6 +27,8 @@ export default {
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
           '~/plugins/loader.js'
+        //   '~/plugins/vue-dialog-loader.js'
+
     ],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)
