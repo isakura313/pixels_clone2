@@ -1,23 +1,22 @@
-<template >
-  <v-progress-circular
-  v-if="loader"
-    class="loader"
-    indeterminate
-    :size="70"
-    :width="7"
-    color="purple"
-  ></v-progress-circular>
+<template v-if="loader">
+    <v-progress-circular
+      class="loader"
+      indeterminate
+      :size="70"
+      :width="7"
+      color="purple"
+    ></v-progress-circular>
 </template>
 
 
 <script>
-export default{
-    props:{
-        loader:{
-            type:Boolean,
-            default: false,
-        }
-    }
+export default {
+  props: {
+    loader: {
+      type: Boolean,
+      default: true,
+    },
+  },
 }
 </script>
 
@@ -26,6 +25,6 @@ export default{
 .loader {
   position: absolute;
   left: 50%;
-  top: 20%;
+  top: 30%;
 }
 </style>

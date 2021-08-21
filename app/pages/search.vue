@@ -4,6 +4,7 @@
       :search = "search"
       @searchEvent = "getData"
     />
+     <Loader :loader="showLoader" />
     <v-container>
       <h1 class="text-center h2 ma-6" v-if="!Boolean(media.length)">
         Здесь пока ничего нет... Ищите!
@@ -14,8 +15,8 @@
         </h1>
       </div>
     </v-container>
-    <Loader :loader="showLoader" />
-    <PhotoGrid :photos="media" :galleryMode="showPag" @likePhoto="globalLike" />
+   
+    <PhotoGrid :photos="media" :galleryMode="showPag" @likePhoto="globalLike" v-show="!showLoader" />
   </v-main>
 </template>
 
@@ -51,7 +52,6 @@ export default {
       if (!this.search) {
         return
       }
-      this.showLoader = true
       this.globalUpdateQuery(this.search, this.globalPage)
       const photo = await this.$axios.$get(
         `https://api.pexels.com/v1/search?query=${this.search}&page=${this.globalPage}`,
@@ -74,6 +74,7 @@ export default {
         }
       })
       this.showPag = true
+      this.showLoader = false
     },
     globalUpdatePage(page) {
       this.globalPage = page
