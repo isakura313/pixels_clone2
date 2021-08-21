@@ -17,6 +17,7 @@
        <v-col class="nav_wrap ma-6">
          <NuxtLink  to = '/' color="primary" class="nav_wrap__link"> Домой </NuxtLink >
          <NuxtLink  to="/search" class="nav_wrap__link"> Поиск </NuxtLink  >
+         <NuxtLink  to="/video" class="nav_wrap__link"> Видео </NuxtLink  >
          <NuxtLink  to="/likes" class="nav_wrap__link"> Избранное </NuxtLink  >
        </v-col>
        </v-row>

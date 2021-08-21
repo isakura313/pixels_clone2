@@ -7,7 +7,13 @@
         </v-col>
       </v-row>
     </v-container>
-    <photo-grid :photos="dataImg" :galleryMode="true" @likePhoto="globalLike" />
+    <Loader :loader="showLoader" />
+    <photo-grid
+      :photos="dataImg"
+      :galleryMode="true"
+      @likePhoto="globalLike"
+      v-show="!showLoader"
+    />
   </v-main>
 </template>
 
@@ -15,6 +21,7 @@
 import CoolLightBox from 'vue-cool-lightbox' // плагин для показывания полного изображения по клику
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
+import Loader from '../components/Loader.vue'
 import { key } from '../keys'
 
 export default {
@@ -22,6 +29,7 @@ export default {
   components: {
     CoolLightBox,
     PhotoGrid,
+    Loader
   },
 
   data: function () {
@@ -32,14 +40,14 @@ export default {
     }
   },
 
-  updated(){
-      this.$nextTick(() => {
-          this.currentPage = this.globalPage;
-        });
+  updated() {
+    this.$nextTick(() => {
+      this.currentPage = this.globalPage
+    })
   },
-  mounted(){
-    const query = this.$route.query.page || 1;
-    this.$store.commit("updatePagination", query)
+  mounted() {
+    const query = this.$route.query.page || 1
+    this.$store.commit('updatePagination', query)
   },
   async asyncData({ $axios, globalPage }) {
     const photo = await $axios.$get(
@@ -62,12 +70,12 @@ export default {
         author: item.photographer,
       }
     })
-    return { dataImg}
+    return { dataImg }
   },
 
   methods: {
     async getData(page) {
-       this.showLoader = true;
+      this.showLoader = true
       const photo = await this.$axios.$get(
         `https://api.pexels.com/v1/curated?page=${page}`,
         {
@@ -89,7 +97,7 @@ export default {
         }
       })
       this.dataImg = dataImg
-      this.showLoader = false;
+      this.showLoader = false
     },
     globalLike(id) {
       this.dataImg.map((index) => {
@@ -102,28 +110,21 @@ export default {
   },
   computed: {
     globalPage() {
-      return  this.$store.state.paginationNumber;
+      return this.$store.state.paginationNumber
     },
-        currentPage: {
+    currentPage: {
       get() {
-        return this.$route.query.page || 1;
+        return this.$route.query.page || 1
       },
       set(newPage) {
         this.$router.push({ query: { ...this.$route.query, page: newPage } })
-      }
-    }
+      },
+    },
   },
   watch: {
     globalPage: function () {
       this.getData(this.globalPage)
     },
-    showLoader: function(){
-      if(this.showLoader){
-        this.$loading.show()
-      }  else{
-        this.$loading.hide()
-      }
-    }
   },
 }
 </script>
@@ -133,4 +134,5 @@ export default {
   height: 100vh !important;
   width: 100%;
 }
+
 </style>

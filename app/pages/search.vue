@@ -14,6 +14,7 @@
         </h1>
       </div>
     </v-container>
+    <Loader :loader="showLoader" />
     <PhotoGrid :photos="media" :galleryMode="showPag" @likePhoto="globalLike" />
   </v-main>
 </template>
@@ -23,13 +24,15 @@ import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
 import SearchTop from '../components/SearchTop.vue';
+import Loader from '../components/Loader.vue'
 import { key } from '../keys'
 
 export default {
   components: {
     CoolLightBox,
     PhotoGrid,
-    SearchTop
+    SearchTop,
+    Loader
   },
 
   data() {
@@ -92,28 +95,6 @@ export default {
     globalPage() {
       return this.$store.state.paginationNumber
     },
-    // currentPage: {
-    //   get() {
-    //     return this.$route.query.pg || 1
-    //   },
-    //   set(newPage) {
-    //     this.$router.push({ query: { ...this.$route.query.word, pg: newPage } })
-    //   },
-    // },
-    // currentSearch: {
-    //   get() {
-    //     return this.$route.query.word || this.search
-    //   },
-    //   set() {
-    //     this.$router.push({
-    //       query: {
-    //         ...this.$route.query,
-    //         word: this.search,
-    //         pg: this.globalPage,
-    //       },
-    //     })
-    //   },
-    // },
   },
   updated() {
     this.showLoader = false
@@ -131,13 +112,6 @@ export default {
   watch: {
     globalPage: function () {
       this.getData(this.search, this.globalPage)
-    },
-    showLoader: function () {
-      if (this.showLoader) {
-        this.$loading.show()
-      } else {
-        this.$loading.hide()
-      }
     },
   },
 }
