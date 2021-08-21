@@ -1,5 +1,6 @@
-<template v-if="loader">
+<template >
   <v-progress-circular
+  v-if="loader"
     class="loader"
     indeterminate
     :size="70"
