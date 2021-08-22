@@ -7,12 +7,22 @@
         </v-col>
       </v-row>
     </v-container>
-    <Loader :loader="showLoader" />
+      <loader
+      v-if="showLoader"
+      object="#ff9633"
+      color1="#ffffff"
+      color2="#17fd3d"
+      size="5"
+      speed="2"
+      bg="#343a40"
+      objectbg="#999793"
+      opacity="80"
+      name="circular"
+    ></loader>
     <photo-grid
       :photos="dataImg"
       :galleryMode="true"
       @likePhoto="globalLike"
-      v-show="!showLoader"
     />
   </v-main>
 </template>
@@ -21,7 +31,7 @@
 import CoolLightBox from 'vue-cool-lightbox' // плагин для показывания полного изображения по клику
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
-import Loader from '../components/Loader.vue'
+// import Loader from '../components/Loader.vue'
 import { key } from '../keys'
 
 export default {
@@ -29,7 +39,7 @@ export default {
   components: {
     CoolLightBox,
     PhotoGrid,
-    Loader
+    // Loader
   },
 
   data: function () {

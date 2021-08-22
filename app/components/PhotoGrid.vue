@@ -58,7 +58,7 @@
 <script>
 import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
-import Card from '../components/Card'
+import Card from '../components/Card';
 import store from '../store'
 
 export default {

@@ -4,7 +4,7 @@
       :search = "search"
       @searchEvent = "getData"
     />
-     <Loader :loader="showLoader" />
+     
     <v-container>
       <h1 class="text-center h2 ma-6" v-if="!Boolean(media.length)">
         Здесь пока ничего нет... Ищите!
@@ -16,7 +16,21 @@
       </div>
     </v-container>
    
-    <PhotoGrid :photos="media" :galleryMode="showPag" @likePhoto="globalLike" v-show="!showLoader" />
+    <loader
+      v-if="showLoader"
+      object="#ff9633"
+      color1="#ffffff"
+      color2="#17fd3d"
+      size="5"
+      speed="2"
+      bg="#343a40"
+      objectbg="#999793"
+      opacity="80"
+      name="circular"
+    ></loader>
+    <PhotoGrid :photos="media" :galleryMode="showPag" @likePhoto="globalLike"  
+    :showLoader="showLoader"
+     />
   </v-main>
 </template>
 
@@ -47,6 +61,7 @@ export default {
   },
   methods: {
     async getData(value, page) {
+      this.showLoader = true;
       this.search = value || this.$route.query.word;
       this.globalPage = page || this.$store.state.paginationNumber
       if (!this.search) {
@@ -98,7 +113,6 @@ export default {
     },
   },
   updated() {
-    this.showLoader = false
     this.$nextTick(() => {
       this.currentPage = this.$store.state.paginationNumber
       this.currentSearch = this.search
@@ -108,7 +122,7 @@ export default {
     const query = this.$route.query.page || 1
     this.search = this.$route.query.search || ''
     this.$store.commit('updatePagination', query)
-    this.getData();
+    // this.getData();
   },
   watch: {
     globalPage: function () {
