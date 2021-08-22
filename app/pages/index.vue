@@ -31,7 +31,6 @@
 import CoolLightBox from 'vue-cool-lightbox' // плагин для показывания полного изображения по клику
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import PhotoGrid from '../components/PhotoGrid.vue'
-// import Loader from '../components/Loader.vue'
 import { key } from '../keys'
 
 export default {
@@ -39,7 +38,6 @@ export default {
   components: {
     CoolLightBox,
     PhotoGrid,
-    // Loader
   },
 
   data: function () {
