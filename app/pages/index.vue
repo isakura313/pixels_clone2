@@ -133,11 +133,6 @@ export default {
     globalPage: function () {
       this.getData(this.globalPage)
     },
-    showLoader: function(){
-      if(this.showLoader == true){
-        
-      }
-    }
   },
 }
 </script>

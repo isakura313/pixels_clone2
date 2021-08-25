@@ -47,7 +47,6 @@
         :total-visible="7"
         v-model="page"
         :length="50"
-        input="updateData(page)"
         circle
       ></v-pagination>
       </v-col>
@@ -100,11 +99,6 @@ export default {
       nextIcon: 'chevron-right',
     }
   }, 
-  // computed: {
-  //   page(){
-  //     // return this.$store.state.paginationNumber;
-  //   }
-  // },
   updated(){
     this.page = Number(this.$store.state.paginationNumber);
   },

@@ -1,6 +1,7 @@
 export default {
     // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
     ssr: false,
+    loading: true,
 
     // Target (https://go.nuxtjs.dev/config-target)
     target: 'static',
@@ -23,7 +24,7 @@ export default {
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
-          '~/plugins/loader.js'
+        '~/plugins/loader.js'
 
     ],
 
