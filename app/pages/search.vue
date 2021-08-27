@@ -108,7 +108,7 @@ export default {
       this.currentPage = this.$store.state.paginationNumber
       this.currentSearch = this.search
     })
-      this.getData(this.search, this.globalPage)
+     
   },
   mounted() {
     const query = this.$route.query.page || 1
@@ -116,11 +116,11 @@ export default {
     this.$store.commit('updatePagination', query)
     this.showLoader = false;
   },
-  // watch: {
-  //   globalPage: function () {
-  //     this.getData(this.search, this.globalPage)
-  //   },
-  // },
+  watch: {
+    globalPage: function () {
+      this.getData(this.search, this.globalPage)
+    },
+  },
 }
 </script>
 
