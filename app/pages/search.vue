@@ -122,7 +122,6 @@ export default {
     const query = this.$route.query.page || 1
     this.search = this.$route.query.search || ''
     this.$store.commit('updatePagination', query)
-    // this.getData();
   },
   watch: {
     globalPage: function () {
