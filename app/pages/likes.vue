@@ -31,35 +31,10 @@ export default {
     return {
         
       index:null,
-      loading: false,
+      loading: false, 
       media: [],
     }
   },
-//   async asyncData({ $axios, likedPhotos }) {
-//    const dataImg  = likedPhotos.map(item = async () =>{
-//     const photoInfo = await $axios.$get(
-//       `https://api.pexels.com/v1/photos/${item.id}`,
-//       {
-//         method: 'GET',
-//         headers: {
-//           Authorization:
-//           key.KEY
-//         },
-//       }
-//     )
-//     const dataInfo =  {
-//         like:false,
-//         id: photoInfo.id,
-//         index: index,
-//         thumb: photoInfo.src.large,
-//         src: photoInfo.src.large,
-//         author_url: photoInfo.photographer_url,
-//         author: photoInfo.photographer
-//       }
-//       return {dataInfo}
-//     }) 
-//     return {dataImg};
-//   },
 
   methods: {
      async getLikedPhoto() {

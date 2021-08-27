@@ -1,33 +1,55 @@
-<template v-if="loader">
-    <loader object="#ff9633" 
-     color1="#ffffff" 
-     color2="#17fd3d" 
-     size="5" 
-     speed="2" 
-     bg="#343a40" 
-     objectbg="#999793" 
-     opacity="80" 
-     v-show="true"
-     name="circular"></loader>
+<template>
+<div class="loader_wrap">
+<div class="loader">
+<svg class="icon-loader" viewBox="0 0 100 100">
+	<path d="M 50 96 a 46 46 0 0 1 0 -92 46 46 0 0 1 0 92" />
+</svg>
+</div>
+</div>
 </template>
 
 
 <script>
 export default {
-  props: {
-    loader: {
-      type: Boolean,
-      default: false,
-    },
-  },
 }
 </script>
 
 
-<style scoped>
-.loader {
-  position: absolute;
-  left: 50%;
+<style>
+.loader_wrap{
+  background-color: rgba(255, 255, 255, 0.507);
+  width: 100%;
+  height: 100%;
+}
+.loader{
+  position: fixed;
   top: 30%;
+  left: 45%;
+  z-index: 1;
+}
+.icon-loader{
+	width:200px;
+	width:200px;
+}
+.icon-loader path{
+	stroke:blue;
+	stroke-width:3;
+	stroke-dasharray:288.5;
+	stroke-linecap:round;
+	fill:none;
+	transform-origin:50px 50px;
+	animation:
+		pathStroke 2.75s infinite ease-in-out,
+		pathRotate 4.5s infinite cubic-bezier(1,.5,0,.5);
+}
+@keyframes pathStroke{
+	0%{stroke-dashoffset:-288.5;}
+	50%{stroke-dashoffset:0;}
+	100%{stroke-dashoffset:288.5;}
+}
+@keyframes pathRotate{
+	0%{transform:rotate(0deg);}
+	50%{transform:rotate(-540deg);}
+	100%{transform:rotate(-1080deg);}
 }
 </style>

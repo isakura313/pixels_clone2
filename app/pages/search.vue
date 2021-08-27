@@ -18,15 +18,6 @@
    
     <loader
       v-if="showLoader"
-      object="#ff9633"
-      color1="#ffffff"
-      color2="#17fd3d"
-      size="5"
-      speed="2"
-      bg="#343a40"
-      objectbg="#999793"
-      opacity="80"
-      name="circular"
     ></loader>
     <PhotoGrid :photos="media" :galleryMode="showPag" @likePhoto="globalLike"  
     :showLoader="showLoader"
@@ -117,17 +108,19 @@ export default {
       this.currentPage = this.$store.state.paginationNumber
       this.currentSearch = this.search
     })
+      this.getData(this.search, this.globalPage)
   },
   mounted() {
     const query = this.$route.query.page || 1
     this.search = this.$route.query.search || ''
     this.$store.commit('updatePagination', query)
+    this.showLoader = false;
   },
-  watch: {
-    globalPage: function () {
-      this.getData(this.search, this.globalPage)
-    },
-  },
+  // watch: {
+  //   globalPage: function () {
+  //     this.getData(this.search, this.globalPage)
+  //   },
+  // },
 }
 </script>
 
