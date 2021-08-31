@@ -4,7 +4,6 @@
       :search = "search"
       @searchEvent = "getData"
     />
-     
     <v-container>
       <h1 class="text-center h2 ma-6" v-if="!Boolean(media.length)">
         Здесь пока ничего нет... Ищите!
@@ -15,11 +14,12 @@
         </h1>
       </div>
     </v-container>
-   
     <loader
       v-if="showLoader"
     ></loader>
-    <PhotoGrid :photos="media" :galleryMode="showPag" @likePhoto="globalLike"  
+    <PhotoGrid :photos="media" 
+    :galleryMode="showPag" 
+    @likePhoto="globalLike"  
     :showLoader="showLoader"
      />
   </v-main>
@@ -83,11 +83,11 @@ export default {
       this.showLoader = false
     },
     globalUpdatePage(page) {
-      this.globalPage = page
-      this.getData(this.search, this.globalPage )
+      this.globalPage = page;
+      this.getData(this.search, this.globalPage);
     },
     globalUpdateQuery(word, newPage){
-        this.$router.push({ query: { word: word, pg: newPage } })
+        this.$router.push({ query: { word: word, pg: newPage } });
     },
     globalLike(id) {
       this.media.map((index) => {
@@ -95,20 +95,19 @@ export default {
           index.like = !index.like
         }
       })
-      this.$store.commit('updateLikes', id)
+      this.$store.commit('updateLikes', id);
     },
   },
   computed: {
     globalPage() {
-      return this.$store.state.paginationNumber
+      return this.$store.state.paginationNumber;
     },
   },
   updated() {
     this.$nextTick(() => {
-      this.currentPage = this.$store.state.paginationNumber
-      this.currentSearch = this.search
+      this.currentPage = this.$store.state.paginationNumber;
+      this.currentSearch = this.search;
     })
-     
   },
   mounted() {
     const query = this.$route.query.page || 1
