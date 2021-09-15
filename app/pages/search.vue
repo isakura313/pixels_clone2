@@ -4,7 +4,6 @@
       :search = "search"
       @searchEvent = "getData"
     />
-     
     <v-container>
       <h1 class="text-center h2 ma-6" v-if="!Boolean(media.length)">
         Здесь пока ничего нет... Ищите!
@@ -15,20 +14,12 @@
         </h1>
       </div>
     </v-container>
-   
     <loader
       v-if="showLoader"
-      object="#ff9633"
-      color1="#ffffff"
-      color2="#17fd3d"
-      size="5"
-      speed="2"
-      bg="#343a40"
-      objectbg="#999793"
-      opacity="80"
-      name="circular"
     ></loader>
-    <PhotoGrid :photos="media" :galleryMode="showPag" @likePhoto="globalLike"  
+    <PhotoGrid :photos="media" 
+    :galleryMode="showPag" 
+    @likePhoto="globalLike"  
     :showLoader="showLoader"
      />
   </v-main>
@@ -92,11 +83,11 @@ export default {
       this.showLoader = false
     },
     globalUpdatePage(page) {
-      this.globalPage = page
-      this.getData(this.search, this.globalPage )
+      this.globalPage = page;
+      this.getData(this.search, this.globalPage);
     },
     globalUpdateQuery(word, newPage){
-        this.$router.push({ query: { word: word, pg: newPage } })
+        this.$router.push({ query: { word: word, pg: newPage } });
     },
     globalLike(id) {
       this.media.map((index) => {
@@ -104,29 +95,34 @@ export default {
           index.like = !index.like
         }
       })
-      this.$store.commit('updateLikes', id)
+      this.$store.commit('updateLikes', id);
     },
   },
   computed: {
     globalPage() {
-      return this.$store.state.paginationNumber
+      return this.$store.state.paginationNumber;
     },
   },
   updated() {
     this.$nextTick(() => {
-      this.currentPage = this.$store.state.paginationNumber
-      this.currentSearch = this.search
+      this.currentPage = this.$store.state.paginationNumber;
+      this.currentSearch = this.search;
     })
   },
   mounted() {
-    const query = this.$route.query.page || 1
-    this.search = this.$route.query.search || ''
+    const query = this.$route.query.pg || 1
+    this.search = this.$route.query.word || ''
     this.$store.commit('updatePagination', query)
-    // this.getData();
+    if(this.search != ''){
+      this.getData(this.search, this.globalPage)
+    }
+    this.showLoader = false;
   },
   watch: {
     globalPage: function () {
-      this.getData(this.search, this.globalPage)
+      if(this.search != ''){
+        this.getData(this.search, this.globalPage)
+      }
     },
   },
 }
