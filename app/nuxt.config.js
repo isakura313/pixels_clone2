@@ -12,19 +12,17 @@ export default {
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: '' }
+            { hid: 'description', name: 'description', content: 'галерея, фотография, API, pexels' }
         ],
         link: [
             { rel: 'icon', type: 'image/png', href: '/favicon.png' }
         ]
     },
 
-    // Global CSS (https://go.nuxtjs.dev/config-css)
     css: [],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
-        // '~/plugins/loader.js'
 
     ],
 
@@ -40,7 +38,26 @@ export default {
         // https://go.nuxtjs.dev/axios
         '@nuxtjs/vuetify',
         '@nuxtjs/axios',
+        '@nuxtjs/auth-next'
     ],
+    auth: {
+        strategies: {
+            facebook: {
+              client_id: 'Enter your facebook clientid here',
+              userinfo_endpoint: 'https://graph.facebook.com/me?fields=about,name,picture.typr(large){url},email,birthday',
+              scope: ['public_profile', 'email', 'user_birthday']
+            },
+            google: {
+              client_id: 'Enter your google clientid here'
+            }
+          },
+          redirect: {
+            login: '/registration',
+            logout: '/registration',
+            callback: '/registration',
+            home: '/'
+          },
+      },
 
     // Axios module configuration (https://go.nuxtjs.dev/config-axios)
     axios: {},
