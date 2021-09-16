@@ -3,93 +3,87 @@
     <v-container>
       <v-row>
         <v-col>
-        <h1 class="text-center h2 ma-6"> Ваши избранные фотографии</h1>
-        <div v-if="!media.length"> <h5 class="text-center h2 ma-6">Добавьте сюда что-нить</h5> </div>
-
+          <h1 class="text-center h2 ma-6">Ваши избранные фотографии</h1>
+          <div v-if="!media.length">
+            <h5 class="text-center h2 ma-6">Добавьте сюда что-нить</h5>
+          </div>
         </v-col>
       </v-row>
     </v-container>
-      <photo-grid :photos="media"/>
+    <PhotoGrid :photos="media" />
   </v-main>
 </template>
 
 <script>
-import CoolLightBox from 'vue-cool-lightbox'
-import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
-import PhotoGrid from '../components/PhotoGrid.vue'
-import {key} from '../keys'
-import axios from 'axios'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import axios from 'axios';
+import PhotoGrid from '../components/PhotoGrid.vue';
+import { key } from '../keys';
 
 export default {
-  name: 'likes',
+  name: 'Likes',
   components: {
-    CoolLightBox,
-    PhotoGrid
+    PhotoGrid,
   },
 
-  data:function() {
+  data() {
     return {
-        
-      index:null,
-      loading: false, 
+      index: null,
+      loading: false,
       media: [],
+    };
+  },
+  computed: {
+    likedPhotos() {
+      return this.$store.state.likedPhotos;
+    },
+  },
+  watch: {
+    likedPhotos() {
+      if (this.$store.state.deleteId !== 0) {
+        this.media = this.media.filter(
+          (item) => item.id !== this.$store.state.deleteId
+        );
+      }
+    },
+  },
+  created() {
+    this.$store.dispatch('getLikes');
+  },
+  mounted() {
+    if (this.likedPhotos.length !== 0) {
+      this.getLikedPhoto();
     }
   },
 
   methods: {
-     async getLikedPhoto() {
-       const dataPhoto = []
-    const dataImg  = this.likedPhotos.map(async(item, index) =>{
-    let photoInfo = await axios.get(
-      `https://api.pexels.com/v1/photos/${item}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization:
-          key.KEY
-        },
-      }
-    )
-    const dataInfo =  {
-        like:false,
-        id: photoInfo.data.id,
-        index: index,
-        thumb: photoInfo.data.src.large,
-        src: photoInfo.data.src.large,
-        author_url: photoInfo.data.photographer_url,
-        author: photoInfo.data.photographer
-      }
-     dataPhoto.push(dataInfo)
-    }) 
-    this.media = dataPhoto
+    async getLikedPhoto() {
+      const dataPhoto = [];
+      this.likedPhotos.map(async (item, index) => {
+        const photoInfo = await axios.get(
+          `https://api.pexels.com/v1/photos/${item}`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: key.KEY,
+            },
+          }
+        );
+        const dataInfo = {
+          like: false,
+          id: photoInfo.data.id,
+          index,
+          thumb: photoInfo.data.src.large,
+          src: photoInfo.data.src.large,
+          author_url: photoInfo.data.photographer_url,
+          author: photoInfo.data.photographer,
+        };
+        dataPhoto.push(dataInfo);
+      });
+      this.media = dataPhoto;
+    },
   },
-  },
-  created(){
-    this.$store.dispatch("getLikes")
-  },
-  mounted(){
-      if(this.likedPhotos.length == 0){
-     return
-      } else{
-          this.getLikedPhoto()
-      }
-  },
-  computed:{
-    likedPhotos() {
-      return this.$store.state.likedPhotos;
-    }
-  },
-  watch: {
-    likedPhotos:function(){
-      if(this.$store.state.deleteId != 0){
-      console.log(this.likedPhotos)
-      this.media = this.media.filter(item => {
-       return item.id != this.$store.state.deleteId 
-      })
-    }
-  }
-  }
-}
+};
 </script>
 
 <style scoped>
