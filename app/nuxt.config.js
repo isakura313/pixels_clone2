@@ -38,26 +38,26 @@ export default {
         // https://go.nuxtjs.dev/axios
         '@nuxtjs/vuetify',
         '@nuxtjs/axios',
-        '@nuxtjs/auth-next'
+        // '@nuxtjs/auth-next'
     ],
-    auth: {
-        strategies: {
-            facebook: {
-              client_id: 'Enter your facebook clientid here',
-              userinfo_endpoint: 'https://graph.facebook.com/me?fields=about,name,picture.typr(large){url},email,birthday',
-              scope: ['public_profile', 'email', 'user_birthday']
-            },
-            google: {
-              client_id: 'Enter your google clientid here'
-            }
-          },
-          redirect: {
-            login: '/registration',
-            logout: '/registration',
-            callback: '/registration',
-            home: '/'
-          },
-      },
+    // auth: {
+    //     strategies: {
+    //         facebook: {
+    //           client_id: 'Enter your facebook clientid here',
+    //           userinfo_endpoint: 'https://graph.facebook.com/me?fields=about,name,picture.typr(large){url},email,birthday',
+    //           scope: ['public_profile', 'email', 'user_birthday']
+    //         },
+    //         google: {
+    //           client_id: 'Enter your google clientid here'
+    //         }
+    //       },
+    //       redirect: {
+    //         login: '/registration',
+    //         logout: '/registration',
+    //         callback: '/registration',
+    //         home: '/'
+    //       },
+    //   },
 
     // Axios module configuration (https://go.nuxtjs.dev/config-axios)
     axios: {},
