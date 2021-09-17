@@ -3,50 +3,25 @@
     <v-container>
       <v-row>
         <v-col>
-          <Loader v-if="showLoader"/>
+          <Loader v-if="showLoader" />
           <h1 class="text-center h2 ma-6">Фотографии на любой вкус</h1>
         </v-col>
       </v-row>
     </v-container>
-    <photo-grid
-      :photos="dataImg"
-      :galleryMode="true"
-      @likePhoto="globalLike"
-    />
+    <PhotoGrid :photos="dataImg" :gallery-mode="true" @likePhoto="globalLike" />
   </v-main>
 </template>
 
 <script>
-import CoolLightBox from 'vue-cool-lightbox' // плагин для показывания полного изображения по клику
-import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
-import PhotoGrid from '../components/PhotoGrid.vue'
-import Loader from '../components/Loader.vue'
-import { key } from '../keys'
+import PhotoGrid from '../components/PhotoGrid.vue';
+import Loader from '../components/Loader.vue';
+import { key } from '../keys';
 
 export default {
   name: 'Home',
   components: {
-    CoolLightBox,
     PhotoGrid,
-    Loader
-  },
-
-  data: function () {
-    return {
-      index: null,
-      showLoader: false,
-      media: [],
-    }
-  },
-
-  updated() {
-    this.$nextTick(() => {
-      this.currentPage = this.globalPage
-    })
-  },
-  mounted() {
-    const query = this.$route.query.page || 1
-    this.$store.commit('updatePagination', query)
+    Loader,
   },
   async asyncData({ $axios, globalPage }) {
     const photo = await $axios.$get(
@@ -57,24 +32,58 @@ export default {
           Authorization: key.KEY,
         },
       }
-    )
-    const dataImg = photo.photos.map((item, index) => {
-      return {
-        like: false,
-        id: item.id,
-        index: index,
-        thumb: item.src.large,
-        src: item.src.large,
-        author_url: item.photographer_url,
-        author: item.photographer,
-      }
-    })
-    return { dataImg }
+    );
+    const dataImg = photo.photos.map((item, index) => ({
+      like: false,
+      id: item.id,
+      index,
+      thumb: item.src.large,
+      src: item.src.large,
+      author_url: item.photographer_url,
+      author: item.photographer,
+    }));
+    return { dataImg };
+  },
+
+  data() {
+    return {
+      index: null,
+      showLoader: false,
+      media: [],
+    };
+  },
+  computed: {
+    globalPage() {
+      return this.$store.state.paginationNumber;
+    },
+    currentPage: {
+      get() {
+        return this.$route.query.page || 1;
+      },
+      set(newPage) {
+        this.$router.push({ query: { ...this.$route.query, page: newPage } });
+      },
+    },
+  },
+  watch: {
+    globalPage() {
+      this.getData(this.globalPage);
+    },
+  },
+
+  updated() {
+    this.$nextTick(() => {
+      this.currentPage = this.globalPage;
+    });
+  },
+  mounted() {
+    const query = this.$route.query.page || 1;
+    this.$store.commit('updatePagination', query);
   },
 
   methods: {
     async getData(page) {
-      this.showLoader = true
+      this.showLoader = true;
       const photo = await this.$axios.$get(
         `https://api.pexels.com/v1/curated?page=${page}`,
         {
@@ -83,49 +92,31 @@ export default {
             Authorization: key.KEY,
           },
         }
-      )
-      const dataImg = photo.photos.map((item, index) => {
-        return {
-          id: item.id,
-          like: false,
-          index: index,
-          thumb: item.src.large,
-          src: item.src.large,
-          color: item.avg_color,
-          author: item.photographer,
-        }
-      })
-      this.dataImg = dataImg
-      this.showLoader = false
+      );
+      const dataImg = photo.photos.map((item, index) => ({
+        id: item.id,
+        like: false,
+        index,
+        thumb: item.src.large,
+        src: item.src.large,
+        color: item.avg_color,
+        author: item.photographer,
+      }));
+      this.dataImg = dataImg;
+      this.showLoader = false;
     },
     globalLike(id) {
+      // eslint-disable-next-line array-callback-return
       this.dataImg.map((index) => {
-        if (index.id == id) {
-          index.like = !index.like
+        if (index.id === id) {
+          // eslint-disable-next-line no-param-reassign
+          index.like = !index.like;
         }
-      })
-      this.$store.commit('updateLikes', id)
+      });
+      this.$store.commit('updateLikes', id);
     },
   },
-  computed: {
-    globalPage() {
-      return this.$store.state.paginationNumber
-    },
-    currentPage: {
-      get() {
-        return this.$route.query.page || 1
-      },
-      set(newPage) {
-        this.$router.push({ query: { ...this.$route.query, page: newPage } })
-      },
-    },
-  },
-  watch: {
-    globalPage: function () {
-      this.getData(this.globalPage)
-    },
-  },
-}
+};
 </script>
 
 <style scoped>
@@ -133,5 +124,4 @@ export default {
   height: 100vh !important;
   width: 100%;
 }
-
 </style>
