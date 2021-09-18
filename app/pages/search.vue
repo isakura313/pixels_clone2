@@ -6,7 +6,7 @@
     Здесь пока ничего нет... Ищите!
    </h1>
    <div v-else>
-    <h1 class="text-center h2 ma-6">
+    <h1 class="te xt-center h2 ma-6">
      Результат поиска по запросу {{ search }}
     </h1>
    </div>
