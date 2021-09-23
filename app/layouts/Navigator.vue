@@ -1,18 +1,61 @@
 <template>
-<v-app-bar color="purple darken-4" app hide-on-scroll>
-  <v-btn class="logo_nav" nuxt color="error" to="/">
-   <v-toolbar-title class="toolbar__logo">Pixels</v-toolbar-title>
-  </v-btn>
-  <v-row>
-   <v-col class="nav_wrap ma-6">
-    <NuxtLink to="/" color="primary" class="nav_wrap__link"> Домой </NuxtLink>
-    <NuxtLink to="/search" class="nav_wrap__link"> Поиск </NuxtLink>
-    <NuxtLink to="/video" class="nav_wrap__link"> Видео </NuxtLink>
-    <NuxtLink to="/likes" class="nav_wrap__link"> Избранное </NuxtLink>
-     <NuxtLink class="nav_wrap__link" to="/login">Login</NuxtLink>
-   </v-col>
-  </v-row>
- </v-app-bar>
+  <v-app-bar
+    color="purple darken-4"
+    app
+    hide-on-scroll
+  >
+    <v-btn
+      class="logo_nav"
+      nuxt
+      color="error"
+      to="/"
+    >
+      <v-toolbar-title class="toolbar__logo">
+        Pixels
+      </v-toolbar-title>
+    </v-btn>
+    <v-row>
+      <v-col class="nav_wrap ma-6">
+        <NuxtLink
+          to="/"
+          color="primary"
+          class="nav_wrap__link"
+        >
+          Домой
+        </NuxtLink>
+        <NuxtLink
+          to="/search"
+          class="nav_wrap__link"
+        >
+          Поиск
+        </NuxtLink>
+        <NuxtLink
+          to="/video"
+          class="nav_wrap__link"
+        >
+          Видео
+        </NuxtLink>
+        <NuxtLink
+          to="/likes"
+          class="nav_wrap__link"
+        >
+          Избранное
+        </NuxtLink>
+        <NuxtLink
+          class="nav_wrap__link"
+          to="/login"
+        >
+          Login
+        </NuxtLink>
+        <NuxtLink
+          class="nav_wrap__link"
+          to="/signup"
+        >
+          Sign Up
+        </NuxtLink>
+      </v-col>
+    </v-row>
+  </v-app-bar>
 </template>
 
 <style scoped lang="sass">

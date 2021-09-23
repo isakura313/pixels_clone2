@@ -12,7 +12,7 @@
               dark
               flat
             >
-              <v-toolbar-title>Зарегистрируйтесь</v-toolbar-title>
+              <v-toolbar-title>Авторизируйтесь</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
               <v-form>
@@ -21,6 +21,13 @@
                   label="Login"
                   name="login"
                   prepend-inner-icon="mdi-account"
+                  type="text"
+                />
+                <v-text-field
+                  v-model="email"
+                  label="email"
+                  name="email"
+                  prepend-inner-icon="mdi-email"
                   type="text"
                 />
                 <v-text-field
@@ -39,7 +46,7 @@
                 color="primary"
                 @click="authNow"
               >
-                Login
+                sign-up
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -50,22 +57,23 @@
 </template>
 
 <script>
-// eslint-disable-next-line import/no-extraneous-dependencies
-import axios from 'axios';
 
 export default {
   data: () => ({
     drawer: null,
     login: '',
+    email: '',
     password: '',
   }),
   methods: {
     async authNow() {
-      console.log(this.$auth);
+      // console.log(this.$auth.loginWith());
+      // console.log(this.$auth);
       try {
-        const response = await this.$auth.loginWith('local', {
+        const response = await this.$auth.signup('local', {
           data: {
-            email: this.login,
+            username: this.login,
+            email: this.email,
             password: this.password,
           },
         });
@@ -73,7 +81,10 @@ export default {
       } catch (err) {
         console.log(err);
       }
-    }
+    //   alert('Произошла авторизация');
+      // возможно, нам придется использовать здесь gravatar
+      // или что-то в этом роде
+    },
   },
 };
 </script>
