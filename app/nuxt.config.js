@@ -48,7 +48,11 @@ export default {
   strategies: {
    local: {
     token: {
-     required: false,
+     //  property: "token",
+     //  global: true,
+     property: "token",
+     global: true,
+     required: true,
      type: false,
      // required: true,
      // type: 'Bearer'
@@ -58,17 +62,26 @@ export default {
      // autoFetch: true
     },
     endpoints: {
-     signup: { url: "/user/signup", method: "post" },
+     //  signup: { url: "/user/signup", method: "post" },
      login: {
-      url: "http://192.168.1.65:3000/user/login",
+      url: "/user/login",
+      method: "POST",
+      //   propertyName: "data.token",
+      //   headers: {
+      //    "Content-Type": "application/json",
+      //    //    token: this.$auth._token.local,
+      //   },
+     },
+     logout: {
+      url: "/user/logout",
       method: "post",
       headers: {
        "Content-Type": "application/json",
       },
      },
      user: {
-      url: "http://192.168.1.65:3000/user/me",
-      method: "get",
+      url: "/user/me",
+      method: "GET",
       headers: {
        "Content-Type": "application/json",
       },

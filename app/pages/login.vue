@@ -12,21 +12,21 @@
               dark
               flat
             >
-              <v-toolbar-title>Зарегистрируйтесь</v-toolbar-title>
+              <v-toolbar-title>Войдите в систему</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
               <v-form>
                 <v-text-field
-                  v-model="login"
-                  label="Login"
-                  name="login"
-                  prepend-inner-icon="mdi-account"
+                  v-model="email"
+                  label="email"
+                  name="email"
+                  prepend-inner-icon="mdi-email"
                   type="text"
                 />
                 <v-text-field
                   id="password"
                   v-model="password"
-                  label="Password"
+                  label="Пароль"
                   name="password"
                   prepend-inner-icon="mdi-lock"
                   type="password"
@@ -36,10 +36,11 @@
             <v-card-actions>
               <v-spacer />
               <v-btn
-                color="primary"
+                color="purple darken-4"
+                style="color: white"
                 @click="authNow"
               >
-                Login
+                Войти
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -56,18 +57,22 @@ import axios from 'axios';
 export default {
   data: () => ({
     drawer: null,
-    login: '',
+    email: '',
     password: '',
   }),
   methods: {
     async authNow() {
-      console.log(this.$auth);
+      // console.log(this.$auth);
+      // const token = sessionStorage.getItem("token");
       try {
         const response = await this.$auth.loginWith('local', {
           data: {
-            email: this.login,
+            email: this.email,
             password: this.password,
           },
+          // headers:{
+          //   token:token
+          // }
         });
         console.log(response);
       } catch (err) {

@@ -12,7 +12,7 @@
               dark
               flat
             >
-              <v-toolbar-title>Авторизируйтесь</v-toolbar-title>
+              <v-toolbar-title>Зарегистрируйтесь</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
               <v-form>
@@ -43,10 +43,11 @@
             <v-card-actions>
               <v-spacer />
               <v-btn
-                color="primary"
+                color="purple darken-4"
+                 style="color: white"
                 @click="authNow"
               >
-                sign-up
+                регистрация
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -70,15 +71,24 @@ export default {
       // console.log(this.$auth.loginWith());
       // console.log(this.$auth);
       try {
-        const response = await this.$auth.signup('local', {
+        const response = await this.$axios({
+          method: "POST",
+          url: "/user/signup",
+          headers:{
+            'Content-Type': 'application/json'
+          },
           data: {
             username: this.login,
             email: this.email,
             password: this.password,
           },
+
         });
         console.log(response);
+        alert("Пользователь был успешно создан")
+        sessionStorage.setItem("token", response.data.token);
       } catch (err) {
+        alert("Произошла ошибка регистрации")
         console.log(err);
       }
     //   alert('Произошла авторизация');
