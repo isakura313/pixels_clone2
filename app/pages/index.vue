@@ -73,7 +73,7 @@ export default {
 
  updated() {
   this.$nextTick(() => {
-   this.currentPage = this.globalPage;
+   this.currentPage = this.globalPage ||1 ; 
   });
  },
  mounted() {

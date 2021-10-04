@@ -13,7 +13,7 @@ export const mutations = {
  updateLikes(state, value) {
   if (state.likedPhotos.indexOf(value) === -1) {
    state.likedPhotos.push(value);
-   localStorage.setItem('likes', JSON.stringify(state.likedPhotos));
+   localStorage.setItem("likes", JSON.stringify(state.likedPhotos));
   }
  },
  deleteLikes(state, id) {
@@ -25,14 +25,14 @@ export const mutations = {
   });
   state.likedPhotos = filter;
   const data = JSON.parse(JSON.stringify(state.likedPhotos));
-  localStorage.setItem('likes', JSON.stringify(data));
+  localStorage.setItem("likes", JSON.stringify(data));
  },
 };
 
 export const actions = {
  getLikes({ commit }) {
-  if (localStorage.getItem('likes')) {
-   commit('initLikes', JSON.parse(localStorage.getItem('likes')));
+  if (localStorage.getItem("likes")) {
+   commit("initLikes", JSON.parse(localStorage.getItem("likes")));
   }
  },
 };

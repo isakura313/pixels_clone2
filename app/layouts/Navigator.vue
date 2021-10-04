@@ -14,8 +14,6 @@
         Pixels
       </v-toolbar-title>
     </v-btn>
-    <v-row>
-      <v-col class="nav_wrap ma-6">
         <NuxtLink
           to="/"
           color="primary"
@@ -41,22 +39,47 @@
         >
           Избранное
         </NuxtLink>
+         <v-spacer></v-spacer>
+        <template v-if="!this.$auth.$state.loggedIn">
         <NuxtLink
           class="nav_wrap__link"
           to="/login"
         >
+         
           Login
         </NuxtLink>
+
         <NuxtLink
           class="nav_wrap__link"
           to="/signup"
         >
           Sign Up
         </NuxtLink>
-      </v-col>
-    </v-row>
+        </template>
+        <template v-else>
+        <NuxtLink
+          class="nav_wrap__link"
+          to="/about"
+        >
+          About
+        </NuxtLink>
+        <v-btn @click="logout">
+          logout
+        </v-btn>
+        </template>
   </v-app-bar>
 </template>
+
+<script>
+export default{
+  methods:{
+     async logout() {
+      await this.$auth.logout();
+    },
+  }
+}
+</script>
+
 
 <style scoped lang="sass">
 .toolbar__logo

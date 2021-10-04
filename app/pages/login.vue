@@ -30,6 +30,7 @@
                   name="password"
                   prepend-inner-icon="mdi-lock"
                   type="password"
+                  autocomplete
                 />
               </v-form>
             </v-card-text>
@@ -73,8 +74,11 @@ export default {
           // headers:{
           //   token:token
           // }
-        });
-        console.log(response);
+        })
+        // .then(()=>{
+        //   console.log(response);
+        // this.$router.push('/about')
+        // })
       } catch (err) {
         console.log(err);
       }
