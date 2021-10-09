@@ -45,6 +45,12 @@ export default {
   // middleware: ['auth'],
  },
  auth: {
+  redirect: {
+   login: "/login",
+   logout: "/",
+   callback: "/login",
+   home: "/about",
+  },
   strategies: {
    local: {
     token: {
@@ -53,7 +59,7 @@ export default {
      property: "token",
      global: true,
      required: true,
-     type: false,
+     type: true,
      // required: true,
      // type: 'Bearer'
     },
@@ -75,6 +81,7 @@ export default {
      logout: {
       url: "/user/logout",
       method: "post",
+      propertyName: false,
       headers: {
        "Content-Type": "application/json",
       },
