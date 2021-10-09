@@ -82,7 +82,7 @@ export default {
      user: {
       url: "/user/me",
       method: "GET",
-      propertyName: false,
+      propertyName: "",
       headers: {
        "Content-Type": "application/json",
       },
