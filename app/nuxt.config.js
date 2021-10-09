@@ -54,12 +54,14 @@ export default {
   strategies: {
    local: {
     token: {
-     //  property: "token",
+      property: "token",
      //  global: true,
-     property: "token",
-     global: true,
+    //  property: "token",
+    //  tokenType: 'Bearer',
+    global: false,
      required: true,
-     type: true,
+     type: false,
+     name: 'token',
      // required: true,
      // type: 'Bearer'
     },

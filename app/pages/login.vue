@@ -71,9 +71,6 @@ export default {
             email: this.email,
             password: this.password,
           },
-          // headers:{
-          //   token:token
-          // }
         })
         // .then(()=>{
         //   console.log(response);
